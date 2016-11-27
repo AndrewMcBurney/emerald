@@ -36,4 +36,17 @@ describe Emerald do
     ).to eq('<section id="header" class="main-text" height="50px" width="200px">'\
       'Attributes follow parentheses. </section>')
   end
+
+  it 'escaping parentheses works' do
+    expect(
+      convert(
+        context: {},
+        input: <<~EMR,
+          section here's some text and \(some stuff in brackets\) (
+            class "something"
+          )
+        EMR
+      )
+    ).to eq('<section class="something">here\'s some text (and some stuff in brackets) </section>')
+  end
 end
