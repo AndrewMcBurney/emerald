@@ -19,7 +19,7 @@
 #include "nodes/text_literal_content.hpp"
 #include "nodes/escaped.hpp"
 #include "nodes/comment.hpp"
-#include "nodes/scoped_key_value_pairs.hpp"
+#include "nodes/scoped_key_value_pair.hpp"
 #include "nodes/key_value_pair.hpp"
 #include "nodes/unary_expr.hpp"
 #include "nodes/binary_expr.hpp"
@@ -97,13 +97,11 @@ Grammar::Grammar() : emerald_parser(syntax) {
       std::transform(semantic_values.begin(), semantic_values.end(), nodes.begin(),
         [=](const peg::SemanticValues& svs) {
           NodePtrs pairs = svs[0].get<NodePtrs>();
-          return NodePtr(new ScopedKeyValuePairs(base_keyword, pairs));
+          return NodePtr(new ScopedKeyValuePair(pairs));
         });
 
       return NodePtr(new NodeList(nodes, "\n"));
     };
-
-  emerald_parser["scoped_key_value_pairs"] = repeated<const peg::SemanticValues>();
 
   emerald_parser["scoped_key_value_pair"] =
     [](const peg::SemanticValues& sv) -> const peg::SemanticValues {
@@ -260,7 +258,8 @@ Grammar::Grammar() : emerald_parser(syntax) {
   // Repeated Nodes
   const std::vector<std::string> repeated_nodes = {
     "statements", "literal_new_lines", "key_value_pairs", "ml_lit_str_quoteds",
-    "ml_templess_lit_str_qs", "inline_literals", "il_lit_str_quoteds", "attributes"
+    "ml_templess_lit_str_qs", "inline_literals", "il_lit_str_quoteds", "attributes",
+    "scoped_key_value_pairs"
   };
   for (std::string repeated_node : repeated_nodes) {
     emerald_parser[repeated_node.c_str()] = repeated<NodePtr>();

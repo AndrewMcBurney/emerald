@@ -1,5 +1,5 @@
-#ifndef SCOPEDKEYVALUEPAIRS_H
-#define SCOPEDKEYVALUEPAIRS_H
+#ifndef SCOPEDKEYVALUEPAIR_H
+#define SCOPEDKEYVALUEPAIR_H
 
 #include "node.hpp"
 
@@ -8,17 +8,16 @@
  *
  * Scoped to pair_list (has knowledge of base_keyword, NOTE: not a parser rule in emerald_parser)
  */
-class ScopedKeyValuePairs : public Node {
+class ScopedKeyValuePair : public Node {
 
 public:
-  ScopedKeyValuePairs(std::string, NodePtrs);
+  ScopedKeyValuePair(NodePtrs);
 
   std::string to_html(Json &context) override;
 
 private:
-  std::string keyword;
   NodePtrs pairs;
 
 };
 
-#endif // SCOPEDKEYVALUEPAIRS_H
+#endif // SCOPEDKEYVALUEPAIR_H
