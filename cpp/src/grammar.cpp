@@ -75,8 +75,8 @@ Grammar::Grammar() : emerald_parser(syntax) {
 
   emerald_parser["value_list"] =
     [](const peg::SemanticValues& sv) -> NodePtr {
-      NodePtr keyword = sv[0].get<NodePtr>();
-      NodePtrs literals = sv[1].get<NodePtrs>();
+      std::string keyword = sv[0].get<std::string>();
+      NodePtrs literals   = sv[1].get<NodePtrs>();
 
       return NodePtr(new ValueList(keyword, literals));
     };

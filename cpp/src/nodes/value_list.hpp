@@ -6,13 +6,13 @@
 class ValueList : public Node {
 
 public:
-  ValueList(NodePtr keyword, NodePtrs literals);
+  ValueList(std::string keyword, NodePtrs literals);
 
   std::string check_keyword(NodePtr element, Json &context);
   std::string to_html(Json &context) override;
 
 private:
-  NodePtr keyword;
+  std::string keyword;
   NodePtrs literals;
 
 };
